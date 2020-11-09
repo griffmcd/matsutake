@@ -1,15 +1,33 @@
 {
    "compilerOptions": {
       "lib": [
-         "es5",
-         "es6"
+         "ESNext",
       ],
-      "target": "es5",
+      "target": "esnext",
       "module": "commonjs",
       "moduleResolution": "node",
-      "outDir": "./build",
+      "outDir": "./dist",
+      "strict": true,
+      "baseUrl": "./",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true
+      "sourceMap": true,
+      "paths": {
+         "@daos/*": [
+            "src/daos/*",
+         ],
+         "@entities/*": [
+            "src/entities/*",
+         ],
+         "@shared/*": [
+            "src/shared/*",
+         ],
+         "@server": [
+            "src/Server",
+         ]
+      }
    }
 }

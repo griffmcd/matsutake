@@ -26,10 +26,11 @@ class UserController {
         user = await userRepository.findOneOrFail(id, {
           select: ['id', 'username', 'role'],
         } as FindOneOptions);
+        return user;
       } catch (error) {
         res.status(404).send('User not found');
       }
-      return user;
+      return undefined;
     };
 
     static newUser = async (req: Request, res: Response) => {

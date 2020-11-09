@@ -2,6 +2,7 @@ import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
+import config from '../config/config';
 import User from '../entities/User';
 
 class AuthController {
@@ -17,25 +18,23 @@ class AuthController {
     let user: User;
     try {
       user = await userRepository.findOneOrFail({ where: { username } });
+      // check if encrypted passwords match
+      if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+        res.status(401).send();
+        return;
+      }
+
+      // sign JWT, valid for one hour
+      const token = jwt.sign(
+        { userId: user.id, username: user.username },
+        config.jwtSecret,
+        { expiresIn: '1h' },
+      );
+      // send the jwt in the response
+      res.send(token);
     } catch (error) {
       res.status(401).send();
     }
-
-    // check if encrypted passwords match
-    if (!user.checkIfUnencryptedPasswordIsValid(password)) {
-      res.status(401).send();
-      return;
-    }
-
-    // sign JWT, valid for one hour
-    const token = jwt.sign(
-      { userId: user.id, username: user.username },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
-    );
-
-    // send the jwt in the response
-    res.send(token);
   };
 
   static changePassword = async (req: Request, res: Response) => {
@@ -53,29 +52,28 @@ class AuthController {
     let user: User;
     try {
       user = await userRepository.findOneOrFail(id);
+      // check if old password matches
+      if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
+        res.status(401).send();
+        return;
+      }
+
+      // validate the model (password length)
+      user.password = newPassword;
+      const errors = await validate(user);
+      if (errors.length > 0) {
+        res.status(400).send(errors);
+        return;
+      }
+
+      // hash the new password and save
+      user.hashPassword();
+      userRepository.save(user);
+
+      res.status(204).send();
     } catch (_error) {
       res.status(401).send();
     }
-
-    // check if old password matches
-    if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-      res.status(401).send();
-      return;
-    }
-
-    // validate the model (password length)
-    user.password = newPassword;
-    const errors = await validate(user);
-    if (errors.length > 0) {
-      res.status(400).send(errors);
-      return;
-    }
-
-    // hash the new password and save
-    user.hashPassword();
-    userRepository.save(user);
-
-    res.status(204).send();
   }
 }
 

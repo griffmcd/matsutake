@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import * as commandLineArgs from 'command-line-args';
+import commandLineArgs from 'command-line-args';
 
 const options = commandLineArgs([
   {

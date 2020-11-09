@@ -10,17 +10,15 @@ const checkRole = (roles: Array<string>) => async (
 
   // get user role from the database
   const userRepository = getRepository(User);
-  let user: User;
   try {
-    user = await userRepository.findOneOrFail(id);
+    const user = await userRepository.findOneOrFail(id);
+    // check if array of authorized roles includes the user's role
+    if (roles.indexOf(user.role) > -1) {
+      next();
+    } else {
+      res.status(401).send();
+    }
   } catch (_error) {
-    res.status(401).send();
-  }
-
-  // check if array of authorized roles includes the user's role
-  if (roles.indexOf(user.role) > -1) {
-    next();
-  } else {
     res.status(401).send();
   }
 };

@@ -1,9 +1,9 @@
 import './preStart'; // must be first import
 import 'reflect-metadata';
-import * as express from 'express';
+import express from 'express';
 import * as bodyParser from 'body-parser';
-import * as helmet from 'helmet';
-import * as cors from 'cors';
+import helmet from 'helmet';
+import cors from 'cors';
 import routes from './routes';
 import connectDB from './database';
 
