@@ -8,6 +8,8 @@ const router = Router();
 // get all users
 router.get('/', [checkJwt, checkRole(['ADMIN'])], UserController.listAll);
 
+router.get('/all', [checkJwt, checkRole(['ADMIN'])], UserController.listAll);
+
 // get one user
 router.get(
   '/:id([0-9]+)',
