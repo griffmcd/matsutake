@@ -1,9 +1,9 @@
 {
    "compilerOptions": {
       "lib": [
-         "ESNext",
+         "ES6"
       ],
-      "target": "esnext",
+      "target": "ES6",
       "module": "commonjs",
       "moduleResolution": "node",
       "outDir": "./dist",
@@ -14,20 +14,9 @@
       "forceConsistentCasingInFileNames": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true,
-      "paths": {
-         "@daos/*": [
-            "src/daos/*",
-         ],
-         "@entities/*": [
-            "src/entities/*",
-         ],
-         "@shared/*": [
-            "src/shared/*",
-         ],
-         "@server": [
-            "src/Server",
-         ]
-      }
-   }
+      "sourceMap": true
+   },
+   "include": [
+      "src/**/*.ts"
+   ]
 }
