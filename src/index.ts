@@ -4,10 +4,11 @@ import connectDB from './database';
 import logger from './shared/logger';
 import app from './server';
 
+const port = process.env.PORT || 3000;
 const startServer = () => {
-  app.listen(3000, () => {
+  app.listen(port, () => {
     // eslint-disable-next-line no-console
-    logger.info('Server listening on port 3000');
+    logger.info(`Server listening on port ${port}`);
   });
 };
 
