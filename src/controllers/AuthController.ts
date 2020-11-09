@@ -2,7 +2,6 @@ import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
-import config from '../config/config';
 import User from '../entities/User';
 
 class AuthController {
@@ -31,7 +30,7 @@ class AuthController {
     // sign JWT, valid for one hour
     const token = jwt.sign(
       { userId: user.id, username: user.username },
-      config.jwtSecret,
+      process.env.JWT_SECRET,
       { expiresIn: '1h' },
     );
 
