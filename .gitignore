@@ -6,3 +6,5 @@ tmp/
 temp/
 .history/
 .eslintrc.json
+
+env/
