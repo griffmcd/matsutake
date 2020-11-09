@@ -5,7 +5,9 @@
    "devDependencies": {
       "@types/command-line-args": "^5.0.0",
       "@types/fs-extra": "^9.0.3",
+      "@types/morgan": "^1.9.2",
       "@types/node": "^8.0.29",
+      "@types/winston": "^2.4.4",
       "@typescript-eslint/eslint-plugin": "^4.6.1",
       "@typescript-eslint/parser": "^4.6.1",
       "eslint": "^7.13.0",
@@ -34,10 +36,12 @@
       "helmet": "^4.2.0",
       "jsonwebtoken": "^8.5.1",
       "module-alias": "^2.2.2",
+      "morgan": "^1.10.0",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.10",
       "ts-node-dev": "^1.0.0",
-      "typeorm": "0.2.29"
+      "typeorm": "0.2.29",
+      "winston": "^3.3.3"
    },
    "scripts": {
       "build": "ts-node build.ts && tsc --build tsconfig.prod.json",

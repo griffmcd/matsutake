@@ -6,10 +6,15 @@ import helmet from 'helmet';
 import cors from 'cors';
 import routes from './routes';
 import connectDB from './database';
+import logger from './shared/logger';
 
 const startServer = () => {
   // create express app
   const app = express();
+
+  // logger
+  // eslint-disable-next-line global-require
+  app.use(require('morgan')('combined', { stream: logger.stream }));
 
   // middlewares
   app.use(cors());
@@ -19,7 +24,7 @@ const startServer = () => {
   app.use('/', routes);
   app.listen(3000, () => {
     // eslint-disable-next-line no-console
-    console.log('Server started on port 3000!');
+    logger.info('Server listening on port 3000');
   });
 };
 (async () => {

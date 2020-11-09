@@ -6,6 +6,6 @@ tmp/
 temp/
 .history/
 .eslintrc.json
-
 env/
 dist/
+.logs/
