@@ -1,7 +1,9 @@
 import { createConnection } from 'typeorm';
 import config from './config/config';
+import logger from './shared/logger';
 
 const connectDB = async () => {
+  logger.info(`server connecting to database at ${process.env.DB_HOST}`);
   await createConnection({
     type: 'postgres',
     host: process.env.DB_HOST,

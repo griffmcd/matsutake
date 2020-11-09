@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import commandLineArgs from 'command-line-args';
+import logger from './shared/logger';
 
 const options = commandLineArgs([
   {
@@ -9,10 +10,8 @@ const options = commandLineArgs([
     type: String,
   },
 ]);
-
 const result2 = dotenv.config({
   path: `./env/${options.env as string}.env`,
-  debug: true,
 });
 
 if (result2.error) {
