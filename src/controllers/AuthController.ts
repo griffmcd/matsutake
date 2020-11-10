@@ -46,6 +46,7 @@ class AuthController {
         .cookie(config.cookieProps.key, token, { signed: true })
         .send();
     } catch (error) {
+      logger.error(error.message);
       res.status(401).send();
     }
   };
