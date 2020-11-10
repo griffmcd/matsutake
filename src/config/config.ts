@@ -1,6 +1,6 @@
 export default {
   cookieProps: Object.freeze({
-    key: 'ExpressGeneratorTs',
+    key: 'token',
     secret: process.env.COOKIE_SECRET,
     options: {
       httpOnly: true,

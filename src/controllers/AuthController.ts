@@ -35,12 +35,13 @@ class AuthController {
       // sign JWT, valid for one hour
       logger.debug(`jwt secret: ${config.jwtSecret}`);
       const token = jwt.sign(
-        { userId: user.id, username: user.username },
+        { userId: user.id, username: user.username, role: user.role },
         config.jwtSecret,
         { expiresIn: '1h' },
       );
       // send the jwt in the response
       logger.debug(`sending token: ${token}`);
+      res.setHeader('token', token);
       res.status(200)
         .cookie(config.cookieProps.key, token, { signed: true })
         .send();
