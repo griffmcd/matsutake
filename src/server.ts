@@ -32,6 +32,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(bodyParser.json());
+
+const staticDir = path.join(__dirname, 'public');
+app.use(express.static(staticDir));
+
 // add apis
 app.use('/api', BaseRouter);
 
@@ -50,8 +54,6 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
 
 app.get('/', (req: Request, res: Response) => {
   res.sendFile('login.html', { root: viewsDir });
