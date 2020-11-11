@@ -49,11 +49,9 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
  */
 
 const viewsDir = path.join(__dirname, 'views');
-logger.debug(`views dir: ${viewsDir}`);
 app.set('views', viewsDir);
-const staticDir = path.join(__dirname, 'public');
-logger.debug(`static dir: ${staticDir}`);
-app.use(express.static(staticDir));
+
+app.use(express.static('public'));
 
 app.get('/', (req: Request, res: Response) => {
   res.sendFile('login.html', { root: viewsDir });
