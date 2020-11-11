@@ -48,10 +48,12 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
  * serve front end content
  */
 
+// /views/ path
 const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
 
-app.use(express.static('public'));
+// /public (static content)
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req: Request, res: Response) => {
   res.sendFile('login.html', { root: viewsDir });
