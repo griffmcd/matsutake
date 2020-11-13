@@ -53,7 +53,10 @@ const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
 
 // /public (static content)
-app.use(express.static(path.join(__dirname, 'public')));
+// if we're in production, we're going to serve the static through nginx. Significantly faster.
+if (process.env.NODE_ENV !== 'production') {
+  app.use(express.static(path.join(__dirname, 'public')));
+}
 
 app.get('/', (req: Request, res: Response) => {
   res.sendFile('login.html', { root: viewsDir });
